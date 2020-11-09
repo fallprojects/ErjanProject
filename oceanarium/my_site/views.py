@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from .models import *
 
-# Create your views here.
+def home_page(request):
+    customers = Customer.objects.all()
+    context = {'customers':customers}
+    return render(request,'my_site/home.html',context)
+
