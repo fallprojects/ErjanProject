@@ -1,0 +1,20 @@
+{%include 'my_site/Navbar.html'%}
+{% block content %}
+<table class="table table-sm">
+<tr>
+    <th>Название</th>
+    <th>Описание</th>
+    <th>Цена</th>
+</tr>
+{% for ticket in tickets %}
+    <tr>
+        <td>{{ticket.name}}</td>
+        <td>Description:{{ticket.description}}</td>
+        <td>Price:{{ticket.price}}</td>
+        <td><a  class="btn btn-dark" href="">Купить</td>
+    </tr>
+
+
+{% endfor%}
+
+{% endblock %}
