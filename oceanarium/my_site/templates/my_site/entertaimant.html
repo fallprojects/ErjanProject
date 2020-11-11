@@ -11,7 +11,7 @@
         <td>{{ticket.name}}</td>
         <td>Description:{{ticket.description}}</td>
         <td>Price:{{ticket.price}}</td>
-        <td><a  class="btn btn-dark" href="">Купить</td>
+        <td><a  class="btn btn-dark" href="{% url 'create_form' ticket.id %}">Купить</td>
     </tr>
 
 
