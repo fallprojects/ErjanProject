@@ -11,5 +11,6 @@ urlpatterns = [
     path('type/',type,name='type'),
     path('contacts/',contacts,name='contacts'),
     path('about/',about,name='about'),
+    path('create_form/<int:pk>/',create_order,name='create_form')
 
 ]
