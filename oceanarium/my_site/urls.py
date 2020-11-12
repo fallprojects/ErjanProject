@@ -9,8 +9,9 @@ urlpatterns = [
     path('customer/<int:pk>/',customer_page,name='customer'),
     path('entertaimant/',entertaimant,name='entertaimant'),
     path('type/',type,name='type'),
+    path('type_id/<int:pk>/',type_id,name='type_id'),
     path('contacts/',contacts,name='contacts'),
     path('about/',about,name='about'),
-    path('create_form/<int:pk>/',create_order,name='create_form')
+    path('entertaimant/<int:pk>/',create_order,name='create_form')
 
 ]
