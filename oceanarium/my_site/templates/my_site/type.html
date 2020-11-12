@@ -4,12 +4,12 @@
 <tr>
     <th>Название</th>
     <th>Описание</th>
-
 </tr>
 {% for type in types %}
     <tr>
-        <td>{{type.name}}</td>
-        <td>{{type.description}}</td>
+            <td>{{type.name}}</td>
+            <td>{{type.description}}</td>
+            <td><a class="btn btn-dark" href="{% url 'type_id' type.id %}">Описание</td>
     </tr>
 
 {% endfor%}
