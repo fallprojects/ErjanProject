@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from .form import Orderform
 
 from .models import *
 
@@ -19,14 +20,19 @@ def entertaimant(request):
     return render(request,'my_site/entertaimant.html',context)
 
 def create_order(request,pk):
-    customer = Customer.objects.get(id=pk)
-    context = {'customer':customer}
-    return render(request, 'my_site/order_form.html',context)
 
+    form = Orderform()
+    if request.method == 'POST':
+        form = Orderform(request.POST)
+        if form.is_valid:
+            form.save()
+            return redirect('/')
+    context = {'form':form}
+    return render(request, 'my_site/create_form.html',context)
 
 def type(request):
-    cus = Customer.objects.all()
-    context = {'cus':cus}
+    types = Type.objects.all()
+    context = {'types':types}
     return render(request,'my_site/type.html', context)
 
 def about(request):

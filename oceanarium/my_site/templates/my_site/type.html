@@ -1,4 +1,17 @@
 {%include 'my_site/Navbar.html'%}
 {% block content %}
+<table class="table table-sm">
+<tr>
+    <th>Название</th>
+    <th>Описание</th>
+
+</tr>
+{% for type in types %}
+    <tr>
+        <td>{{type.name}}</td>
+        <td>{{type.description}}</td>
+    </tr>
+
+{% endfor%}
 
 {% endblock %}
