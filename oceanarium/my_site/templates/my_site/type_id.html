@@ -1,0 +1,11 @@
+{%include 'my_site/Navbar.html'%}
+{% block content %}
+
+<table class="table table-sm">
+
+    <tr>
+            <img src="{{ type_ids.img.url }}" alt="Admin" class="rounded-circle" width="500">
+            <td>{{type_ids.text}}</td>
+    </tr>
+
+{% endblock %}

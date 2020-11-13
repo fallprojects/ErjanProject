@@ -1,17 +1,18 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from .form import Orderform
-
 from .models import *
 
 def home_page(request):
     customers = Customer.objects.all()
-    context = {'customers':customers}
+    orders = Order.objects.all()
+    context = {'customers':customers,'orders':orders}
     return render(request,'my_site/home.html',context)
 
 def customer_page(request,pk):
-    customers = Customer.objects.all()
-    context = {'customers':customers}
+    customer = Customer.objects.get(id=pk)
+    orders = customer.order_set.all()
+    context = {'customers':customer,'orders':orders}
     return render(request,'my_site/customer.html',context)
 
 def entertaimant(request):
@@ -20,20 +21,25 @@ def entertaimant(request):
     return render(request,'my_site/entertaimant.html',context)
 
 def create_order(request,pk):
-
-    form = Orderform()
+    ticket = Ticket.objects.get(id=pk)
+    forms = Orderform(initial={'ticket':ticket})
     if request.method == 'POST':
-        form = Orderform(request.POST)
-        if form.is_valid:
-            form.save()
+        forms = Orderform(request.POST)
+        if forms.is_valid:
+            forms.save()
             return redirect('/')
-    context = {'form':form}
+    context = {'forms':forms,'ticket':ticket}
     return render(request, 'my_site/create_form.html',context)
 
 def type(request):
     types = Type.objects.all()
     context = {'types':types}
     return render(request,'my_site/type.html', context)
+
+def type_id(request,pk):
+    type_ids = Type.objects.get(id=pk)
+    context = {'type_ids':type_ids}
+    return render(request,'my_site/type_id.html',context)
 
 def about(request):
     cus = Customer.objects.all()

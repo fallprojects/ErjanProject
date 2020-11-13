@@ -1,4 +1,17 @@
 {%extends 'my_site/main.html'%}
 {%block content%}
 
+<table class="table table-sm">
+    <tr>
+    <th>Название</th>
+    <th>Дата покупки</th>
+</tr>
+    {% for order in orders%}
+    <tr>
+        <td>{{order.ticket}}</td>
+        <td>{{order.date_created}}</td>
+
+    </tr>
+{%endfor%}
+
 {% endblock %}

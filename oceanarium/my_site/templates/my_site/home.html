@@ -1,13 +1,28 @@
 {%extends 'my_site/main.html'%}
 {%block content%}
 <table>
-
 {% for customer in customers %}
-
   <tr>
-    <td>Name:{{customer.full_name}}</td>
-    <td>Phone:{{customer.phone}}</td>
+    	<td>Name:{{customer.full_name}}</td>
+    	<td>Phone:{{customer.phone}}</td>
+	  	<td><a href="{% url 'customer_page' customer.id %}">View</a> </td>
 </tr>
 {% endfor%}
 </table>
+<table class="table table-sm">
+				<tr>
+					<th>Name</th>
+					<th>Status</th>
+				</tr>
+				{%for order in orders%}
+				<tr>
+					<td>{{order.ticket}}</td>
+					<td>{{order.status}}</td>
+				</tr>
+				{%endfor%}
+			</table>
+		</div>
+	</div>
+</div>
 {% endblock %}
+
