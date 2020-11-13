@@ -1,7 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
 from .form import Orderform
-
 from .models import *
 
 def home_page(request):
@@ -11,9 +10,9 @@ def home_page(request):
     return render(request,'my_site/home.html',context)
 
 def customer_page(request,pk):
-    customers = Customer.objects.get(id=pk)
-    orders = Customer.order.all()
-    context = {'customers':customers,'orders':orders}
+    customer = Customer.objects.get(id=pk)
+    orders = customer.order_set.all()
+    context = {'customers':customer,'orders':orders}
     return render(request,'my_site/customer.html',context)
 
 def entertaimant(request):
@@ -23,9 +22,9 @@ def entertaimant(request):
 
 def create_order(request,pk):
     ticket = Ticket.objects.get(id=pk)
-    forms = Orderform(instance=ticket)
+    forms = Orderform(initial={'ticket':ticket})
     if request.method == 'POST':
-        forms = Orderform(request.POST,instance=ticket)
+        forms = Orderform(request.POST)
         if forms.is_valid:
             forms.save()
             return redirect('/')
