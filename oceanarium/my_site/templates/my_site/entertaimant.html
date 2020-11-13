@@ -1,5 +1,6 @@
 {%include 'my_site/Navbar.html'%}
 {% block content %}
+
 <table class="table table-sm">
 <tr>
     <th>Название</th>
@@ -10,10 +11,8 @@
     <tr>
         <td>{{ticket.name}}</td>
         <td>Description:{{ticket.description}}</td>
-        <td>Price:{{ticket.price}}</td>
         <td><a  class="btn btn-dark" href="{% url 'create_form' ticket.id %}">Купить</td>
     </tr>
-
 
 {% endfor%}
 
