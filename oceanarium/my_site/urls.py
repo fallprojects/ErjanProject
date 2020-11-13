@@ -6,12 +6,12 @@ from .views import *
 
 urlpatterns = [
     path('',home_page,name='home'),
-    path('customer/<int:pk>/',customer_page,name='customer'),
+    path('customer/<int:pk>/',customer_page,name='customer_page'),
     path('entertaimant/',entertaimant,name='entertaimant'),
     path('type/',type,name='type'),
     path('type_id/<int:pk>/',type_id,name='type_id'),
     path('contacts/',contacts,name='contacts'),
     path('about/',about,name='about'),
-    path('entertaimant/<int:pk>/',create_order,name='create_form')
+    path('create_order/<int:pk>/',create_order,name='create_form')
 
 ]
