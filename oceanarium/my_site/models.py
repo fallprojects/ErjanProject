@@ -1,6 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 class Customer(models.Model):
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=100, null=True)
     email = models.CharField(max_length=100, null=True)
     address = models.CharField(max_length=100, null=True)
@@ -13,9 +15,9 @@ class Ticket(models.Model):
     name = models.CharField(max_length=100, null=True)
     description = models.CharField(max_length=100, null=True)
     price = models.CharField(max_length=100, null=True)
-
     def __str__(self):
         return self.name
+
 class Order(models.Model):
     Status =(
         ('Sales', 'Sales'),
@@ -24,6 +26,7 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     ticket = models.ForeignKey(Ticket, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True)
+
     status = models.CharField(max_length=100, null=True, choices=Status)
 
 class Type(models.Model):
@@ -34,4 +37,8 @@ class Type(models.Model):
 
     def __str__(self):
         return self.name
+
+
+
+
 
