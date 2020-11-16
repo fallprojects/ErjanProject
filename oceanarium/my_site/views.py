@@ -11,9 +11,9 @@ def registration(request):
     form = UserCreationForm()
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             form.save()
-            return redirect('home')
+            return redirect('authorization')
     context = {'form':form}
     return render(request,'my_site/registration.html', context)
 
@@ -52,13 +52,14 @@ def entertaimant(request):
 
 def create_order(request,pk):
     ticket = Ticket.objects.get(id=pk)
-    forms = Orderform(initial={'ticket':ticket})
+    customer = request.user.customer
+    forms = Orderform(initial={'ticket':ticket},instance=customer)
     if request.method == 'POST':
         forms = Orderform(request.POST)
-        if forms.is_valid:
+        if forms.is_valid():
             forms.save()
             return redirect('/')
-    context = {'forms':forms,'ticket':ticket}
+    context = {'forms':forms,'ticket':ticket,'customer':customer}
     return render(request, 'my_site/create_form.html',context)
 
 def type(request):
@@ -73,10 +74,10 @@ def type_id(request,pk):
 
 def commit(reguest):
     commits = Commit.objects.all()
-    form = Commit()
+    form = Commitform()
     if reguest.method == 'POST':
-        form = Commitform(reguest.POST)
-        if form.is_valid:
+        form = Commitform(reguest.POST,)
+        if form.is_valid():
             form.save()
     context = {'commits':commits,'form':form}
     return render(reguest,'my_site/comments.html', context)
