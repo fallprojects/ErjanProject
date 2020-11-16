@@ -39,8 +39,6 @@ class Type(models.Model):
 
 class Commit(models.Model):
     commit = models.CharField(max_length=200,null=True)
-    description = models.CharField(max_length=100, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
+    user = models.OneToOneField(User, null=True, blank=True, on_delete=models.CASCADE, unique=False)
 
-    def __str__(self):
-        return self.commit
