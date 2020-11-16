@@ -26,7 +26,6 @@ class Order(models.Model):
     customer = models.ForeignKey(Customer, null=True, on_delete=models.SET_NULL)
     ticket = models.ForeignKey(Ticket, null=True, on_delete=models.SET_NULL)
     date_created = models.DateTimeField(auto_now_add=True)
-
     status = models.CharField(max_length=100, null=True, choices=Status)
 
 class Type(models.Model):
@@ -38,7 +37,10 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
+class Commit(models.Model):
+    commit = models.CharField(max_length=200,null=True)
+    description = models.CharField(max_length=100, null=True)
+    date_created = models.DateTimeField(auto_now_add=True)
 
-
-
-
+    def __str__(self):
+        return self.commit
