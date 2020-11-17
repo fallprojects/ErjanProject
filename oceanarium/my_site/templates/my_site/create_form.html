@@ -6,7 +6,7 @@
             <form action="" method="POST">
                 {%csrf_token%}
                 {{forms}}
-
+                {{ ticket.price }}
                 <input class="btn btn-success" type="submit" name="Submit">
             </form>
             </dev>
