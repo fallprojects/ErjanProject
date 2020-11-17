@@ -7,7 +7,8 @@ class Orderform(ModelForm):
     class Meta:
         model = Order
         fields = '__all__'
-        exclude = ['customer']
+        exclude = ['customer','status']
+
 
 class Commitform(ModelForm):
     class Meta:
