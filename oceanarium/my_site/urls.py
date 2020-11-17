@@ -3,6 +3,8 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path,include
 from .views import *
+from django.conf.urls import url
+
 
 urlpatterns = [
     path('',home_page,name='home'),
@@ -16,6 +18,8 @@ urlpatterns = [
     path('contacts/',contacts,name='contacts'),
     path('about/',about,name='about'),
     path('create_order/<int:pk>/',create_order,name='create_form'),
-    path('commit/',commit,name='commit')
+    path('commit/',commit,name='commit'),
+    path('delete/<int:pk>/',delete_order,name='delete')
 
 ]
+
