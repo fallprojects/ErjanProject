@@ -6,6 +6,7 @@
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
+
       <li class="nav-item active">
         <a class="nav-link" href="{% url 'entertaimant' %}">Развлечения<span class="sr-only"></span></a>
       </li>
@@ -18,8 +19,11 @@
       <li class="nav-link">
       <a class="nav-link" href="{% url 'contacts' %}">Контакты</a>
       </li>
-    </ul>
-    <span style=""></span>
-<!--    <span><a href="">Logout</a></span>-->
+      <li>
+        <a class="nav-link" href="{% url 'commit'  %}">Отзывы</a>
+      </li>
+    <span style></span>
+    <span >Hello, {{request.user}}</span>
+    <span><a href="{% url 'logout_page' %}">Logout</a></span>
   </div>
 </nav>

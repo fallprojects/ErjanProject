@@ -1,4 +1,21 @@
 {%include 'my_site/Navbar.html'%}
 {% block content %}
 
+<table border="1">
+<tr>
+    <th>Адерсс</th>
+    <th>Телефон</th>
+    <th>Email</th>
+</tr>
+    {% for con in contacts %}
+    <tr>
+        <img src="{{ contacts.img.url }}"  class="rounded-circle" width="500">
+        <td>{{ con.address }}</td>
+        <td>{{ con.email }}</td>
+        <td>{{ con.phone }}</td>
+    </tr>
+    {%endfor%}
+
+</table>
+
 {% endblock %}

@@ -2,6 +2,34 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from .form import Orderform
 from .models import *
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import login,authenticate,logout
+from .form import *
+
+def registration(request):
+    form = UserCreationForm()
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('authorization')
+    context = {'form':form}
+    return render(request,'my_site/registration.html', context)
+
+def authorization(request):
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        user = authenticate(request, username=username, password=password)
+        login(request, user)
+        if user is not None:
+            return redirect('home')
+    context = {}
+    return render(request, 'my_site/authorization.html', context)
+
+def logout_page(reguest):
+    logout(reguest)
+    return redirect('authorization')
 
 def home_page(request):
     customers = Customer.objects.all()
@@ -22,13 +50,14 @@ def entertaimant(request):
 
 def create_order(request,pk):
     ticket = Ticket.objects.get(id=pk)
-    forms = Orderform(initial={'ticket':ticket})
+    customer = request.user
+    forms = Orderform(initial={'ticket':ticket,'customer':customer})
     if request.method == 'POST':
         forms = Orderform(request.POST)
-        if forms.is_valid:
+        if forms.is_valid():
             forms.save()
             return redirect('/')
-    context = {'forms':forms,'ticket':ticket}
+    context = {'forms':forms,'ticket':ticket,'customer':customer}
     return render(request, 'my_site/create_form.html',context)
 
 def type(request):
@@ -41,13 +70,31 @@ def type_id(request,pk):
     context = {'type_ids':type_ids}
     return render(request,'my_site/type_id.html',context)
 
+def commit(reguest):
+    commits = Commit.objects.all()
+    cus = reguest.user
+    form = Commitform(initial={'cus':cus})
+    if reguest.method == 'POST':
+        form = Commitform(reguest.POST)
+        if form.is_valid():
+            form.save()
+    context = {'commits':commits,'form':form}
+    return render(reguest,'my_site/comments.html', context)
+
 def about(request):
-    cus = Customer.objects.all()
-    context = {'cus':cus}
-    return render(request, 'my_site/about.html', context)
+    abouts = About.objects.all()
+    context = {'abouts':abouts}
+    return render(request,'my_site/about.html', context)
 
 def contacts(request):
-    cus = Customer.objects.all()
-    context = {'cus':cus}
+    contacts = Contacts.objects.all()
+    context = {'contacts':contacts}
     return render(request, 'my_site/contacts.html', context)
 
+def delete_order(request,pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('home')
+    context = {'order':order}
+    return render(request,'my_site/delete.html',context)

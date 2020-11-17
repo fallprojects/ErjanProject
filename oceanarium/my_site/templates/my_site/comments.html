@@ -1,0 +1,23 @@
+{%include 'my_site/Navbar.html'%}
+{% block content %}
+<table class="table table-sm">
+<tr>
+    <th>Комментарий</th>
+</tr>
+    {% for commit in commits %}
+    <tr>
+        <td>{{ commit.commit }}</td>
+        <td>{{ commit.date_created }}</td>
+        <td>{{ commit.user }}</td>
+    </tr>
+    {%endfor%}
+
+</table>
+
+    <form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <input type="submit" name="submit">
+    </form>
+
+{% endblock %}

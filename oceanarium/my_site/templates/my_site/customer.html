@@ -8,10 +8,12 @@
 </tr>
     {% for order in orders%}
     <tr>
+
         <td>{{order.ticket}}</td>
         <td>{{order.date_created}}</td>
-
+        <td><a href="{% url 'delete' order.id  %}">Удалить</a></td>
     </tr>
+
 {%endfor%}
 
 {% endblock %}

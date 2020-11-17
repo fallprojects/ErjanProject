@@ -1,4 +1,19 @@
 {%include 'my_site/Navbar.html'%}
 {% block content %}
 
+<table class="table table-sm">
+<tr>
+    <th>О нас</th>
+</tr>
+{% for about in abouts %}
+    <tr>
+            <img src="{{ about.img1.url }}"  class="rounded-circle" width="199">
+            <img src="{{ about.img2.url }}"  class="rounded-circle" width="199">
+            <img src="{{ about.img3.url }}"  class="rounded-circle" width="199">
+            <img src="{{ about.img4.url }}"  class="rounded-circle" width="199">
+            <td>{{about.name}}</td>
+    </tr>
+
+{% endfor%}
+
 {% endblock %}
