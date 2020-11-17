@@ -6,7 +6,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login,authenticate,logout
 from .form import *
 
-
 def registration(request):
     form = UserCreationForm()
     if request.method == 'POST':
@@ -30,8 +29,7 @@ def authorization(request):
 
 def logout_page(reguest):
     logout(reguest)
-    return redirect('home')
-
+    return redirect('authorization')
 
 def home_page(request):
     customers = Customer.objects.all()
@@ -52,8 +50,8 @@ def entertaimant(request):
 
 def create_order(request,pk):
     ticket = Ticket.objects.get(id=pk)
-    customer = request.user.customer
-    forms = Orderform(initial={'ticket':ticket},instance=customer)
+    customer = request.user
+    forms = Orderform(initial={'ticket':ticket,'customer':customer})
     if request.method == 'POST':
         forms = Orderform(request.POST)
         if forms.is_valid():
@@ -74,20 +72,29 @@ def type_id(request,pk):
 
 def commit(reguest):
     commits = Commit.objects.all()
-    form = Commitform()
+    cus = reguest.user
+    form = Commitform(initial={'cus':cus})
     if reguest.method == 'POST':
-        form = Commitform(reguest.POST,)
+        form = Commitform(reguest.POST)
         if form.is_valid():
             form.save()
     context = {'commits':commits,'form':form}
     return render(reguest,'my_site/comments.html', context)
 
 def about(request):
-    cus = Customer.objects.all()
-    context = {'cus':cus}
+    abouts = About.objects.all()
+    context = {'abouts':abouts}
     return render(request,'my_site/about.html', context)
 
 def contacts(request):
-    cus = Customer.objects.all()
-    context = {'cus':cus}
+    contacts = Contacts.objects.all()
+    context = {'contacts':contacts}
     return render(request, 'my_site/contacts.html', context)
+
+def delete_order(request,pk):
+    order = Order.objects.get(id=pk)
+    if request.method == 'POST':
+        order.delete()
+        return redirect('home')
+    context = {'order':order}
+    return render(request,'my_site/delete.html',context)
